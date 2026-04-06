@@ -1,0 +1,71 @@
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-xl);
+}
+.rider-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.rider-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+.rider-photo { aspect-ratio: 1; overflow: hidden; }
+.rider-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+.rider-card:hover .rider-photo img { transform: scale(1.05); }
+.rider-info { padding: var(--space-lg); }
+.rider-info h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: var(--space-sm); }
+.rider-info p { font-size: 0.875rem; color: var(--color-text-muted); margin-top: var(--space-sm); line-height: 1.6; }
+.instagram-link { display: inline-block; margin-top: var(--space-sm); color: var(--color-primary); font-size: 0.85rem; font-weight: 600; }
+.instagram-link:hover { text-decoration: underline; }
+
+.results-table { overflow-x: auto; }
+.results-table table { width: 100%; border-collapse: collapse; background: var(--color-surface); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-card); }
+.results-table th { background: var(--color-secondary); color: #fff; padding: var(--space-md); text-align: left; font-size: 0.85rem; font-weight: 600; }
+.results-table td { padding: var(--space-md); border-bottom: 1px solid var(--color-border); font-size: 0.9rem; }
+.results-table tr:last-child td { border-bottom: none; }
+.results-table tr:hover td { background: var(--color-bg); }
+.race-name { font-weight: 600; }
+.position-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+.pos-1 { background: #ffd700; color: #000; }
+.pos-2 { background: #c0c0c0; color: #000; }
+.pos-3 { background: #cd7f32; color: #fff; }
+.pos-4, .pos-5, .pos-6, .pos-7, .pos-8, .pos-9, .pos-10 { background: var(--color-bg); color: var(--color-text-muted); border: 1.5px solid var(--color-border); }
+
+.sponsors-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+  justify-content: center;
+  align-items: center;
+}
+.sponsor-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.sponsor-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+.tier-gold { width: 180px; height: 90px; }
+.tier-silver { width: 140px; height: 70px; }
+.tier-bronze { width: 120px; height: 60px; }
+.sponsor-card img { max-width: 100%; max-height: 100%; object-fit: contain; filter: grayscale(30%); transition: filter var(--transition); }
+.sponsor-card:hover img { filter: grayscale(0%); }
+
+@media (max-width: 640px) {
+  .results-table th:nth-child(5), .results-table td:nth-child(5),
+  .results-table th:nth-child(6), .results-table td:nth-child(6) { display: none; }
+}

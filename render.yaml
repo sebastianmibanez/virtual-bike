@@ -1,0 +1,32 @@
+# render.yaml — Render Blueprint
+# Conecta tu repo de GitHub a Render y esto configura todo automáticamente.
+# Docs: https://docs.render.com/blueprint-spec
+
+services:
+  - type: web
+    name: virtual-bike
+    runtime: python
+    region: oregon
+    plan: free
+    buildCommand: cd frontend && npm ci && npm run build && cd .. && pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 120 --access-logfile - app:app
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.0"
+      - key: FLASK_DEBUG
+        value: "false"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: MP_ACCESS_TOKEN
+        sync: false
+      - key: MP_WEBHOOK_SECRET
+        sync: false
+      - key: APP_BASE_URL
+        sync: false
+      - key: USE_SANDBOX
+        value: "false"
