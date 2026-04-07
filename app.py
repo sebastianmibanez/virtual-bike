@@ -6,11 +6,12 @@ import logging
 # ── App setup ─────────────────────────────────────────────────
 app = Flask(__name__, static_folder='frontend/dist', static_url_path='')
 
-CORS(app, resources={r"/api/*": {"origins": [
-    "http://localhost:5173",
-    "http://localhost:3000",
-    os.getenv('APP_BASE_URL', ''),
-]}}, supports_credentials=True)
+_allowed_origins = ["http://localhost:5173", "http://localhost:3000"]
+_app_url = os.getenv('APP_BASE_URL', '').strip()
+if _app_url and _app_url.startswith('http'):
+    _allowed_origins.append(_app_url)
+
+CORS(app, resources={r"/api/*": {"origins": _allowed_origins}}, supports_credentials=True)
 
 app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
 app.secret_key = os.getenv('SECRET_KEY', os.urandom(32))
@@ -33,12 +34,14 @@ from blueprints.products import products_bp
 from blueprints.orders import orders_bp
 from blueprints.team import team_bp
 from blueprints.contact import contact_bp
+from blueprints.tracking import tracking_bp
 
 app.register_blueprint(auth_bp)
 app.register_blueprint(products_bp)
 app.register_blueprint(orders_bp)
 app.register_blueprint(team_bp)
 app.register_blueprint(contact_bp)
+app.register_blueprint(tracking_bp)
 
 
 # ── Security headers ──────────────────────────────────────────

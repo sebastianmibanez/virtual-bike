@@ -129,7 +129,7 @@ def create_preference():
 
 @orders_bp.route('/api/checkout/webhook', methods=['POST'])
 def mp_webhook():
-    # Verify HMAC signature if secret is configured
+    # Verify HMAC signature — required when secret is configured
     if MP_WEBHOOK_SECRET:
         sig_header = request.headers.get('X-Signature', '')
         ts = ''
@@ -141,11 +141,18 @@ def mp_webhook():
             elif part.startswith('v1='):
                 received_hash = part[3:]
 
+        if not received_hash:
+            logger.warning('Webhook received without X-Signature — rejected')
+            return jsonify({'ok': False}), 401
+
         data_id = request.args.get('data.id', '') or (request.get_json(silent=True) or {}).get('data', {}).get('id', '')
         manifest = f'id:{data_id};request-id:{request.headers.get("X-Request-Id","")};ts:{ts};'
         expected = hmac.new(MP_WEBHOOK_SECRET.encode(), manifest.encode(), hashlib.sha256).hexdigest()
         if not hmac.compare_digest(expected, received_hash):
+            logger.warning(f'Webhook HMAC mismatch — possible fraud attempt from {request.remote_addr}')
             return jsonify({'ok': False}), 401
+    else:
+        logger.warning('MP_WEBHOOK_SECRET not configured — skipping signature check (INSECURE)')
 
     payload = request.get_json(silent=True) or {}
     topic = payload.get('type') or request.args.get('topic', '')

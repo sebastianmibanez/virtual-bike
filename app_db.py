@@ -161,6 +161,20 @@ def init_db():
             )
         ''')
 
+        db_execute(conn, '''
+            CREATE TABLE IF NOT EXISTS page_visits (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                ip TEXT NOT NULL DEFAULT '',
+                user_agent TEXT NOT NULL DEFAULT '',
+                path TEXT NOT NULL DEFAULT '/',
+                referrer TEXT NOT NULL DEFAULT '',
+                session_id TEXT NOT NULL DEFAULT '',
+                visited_at TEXT NOT NULL
+            )
+        ''')
+        db_execute(conn, 'CREATE INDEX IF NOT EXISTS idx_visits_at ON page_visits(visited_at)')
+        db_execute(conn, 'CREATE INDEX IF NOT EXISTS idx_visits_session ON page_visits(session_id)')
+
 
 def seed_admin():
     """Create default admin from env vars if no admins exist."""
