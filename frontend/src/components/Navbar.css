@@ -21,7 +21,7 @@
   align-items: center;
   gap: var(--space-sm);
   color: #fff;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   letter-spacing: -0.5px;
 }
 .logo-vbk { flex-shrink: 0; }

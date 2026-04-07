@@ -1,14 +1,43 @@
 /* ── Hero split ──────────────────────────────────────────────── */
 .hero {
   display: grid;
-  grid-template-columns: 55% 45%;
+  grid-template-columns: 43% 57%;
   min-height: 92vh;
   margin-top: calc(-1 * var(--navbar-height));
 }
 
 /* Left panel */
 .hero-left {
-  background: #080f1e;
+  background-color: #060d1b;
+  background-image:
+    /* Bloques diagonales azul oscuro / marino — entramado principal */
+    repeating-linear-gradient(
+      -48deg,
+      transparent 0px,
+      transparent 55px,
+      rgba(13, 71, 161, 0.38) 55px,
+      rgba(13, 71, 161, 0.38) 82px,
+      transparent 82px,
+      transparent 140px,
+      rgba(21, 101, 192, 0.28) 140px,
+      rgba(21, 101, 192, 0.28) 162px,
+      transparent 162px,
+      transparent 220px
+    ),
+    /* Cruce diagonal — toque celeste y amarillo */
+    repeating-linear-gradient(
+      42deg,
+      transparent 0px,
+      transparent 48px,
+      rgba(41, 182, 246, 0.09) 48px,
+      rgba(41, 182, 246, 0.09) 72px,
+      transparent 72px,
+      transparent 120px,
+      rgba(212, 255, 0, 0.06) 120px,
+      rgba(212, 255, 0, 0.06) 136px,
+      transparent 136px,
+      transparent 184px
+    );
   display: flex;
   align-items: center;
   padding: calc(var(--navbar-height) + 3rem) 4rem 4rem 4rem;
