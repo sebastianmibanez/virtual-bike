@@ -1,49 +1,75 @@
+/* ── Intro section con carousel de fondo ────────────────────── */
+.carreras-intro-section {
+  position: relative;
+  padding: var(--space-3xl) 0;
+  overflow: hidden;
+}
+
+.carreras-bg-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.9s ease-in-out;
+}
+
+.carreras-bg-slide.active {
+  opacity: 1;
+}
+
+.carreras-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(8,15,30,0.88) 0%, rgba(21,101,192,0.6) 100%);
+}
+
+.carreras-intro-content {
+  position: relative;
+  z-index: 1;
+}
+
+.carreras-intro {
+  max-width: 680px;
+}
+
+.carreras-intro h2 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: var(--space-lg);
+}
+
 .carreras-intro p {
   font-size: 1.05rem;
-  color: var(--color-text-muted);
-  max-width: 680px;
+  color: rgba(255,255,255,0.82);
   margin-bottom: var(--space-lg);
   line-height: 1.7;
 }
 
-.carreras-gallery {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-lg);
+/* Dots */
+.carreras-dots {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: var(--space-xl);
 }
 
-.gallery-item {
-  position: relative;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
+.carreras-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.35);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s;
 }
 
-.gallery-item img {
-  width: 100%;
-  height: 380px;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.4s ease;
+.carreras-dot.active {
+  background: var(--color-accent);
 }
 
-.gallery-item:hover img {
-  transform: scale(1.03);
-}
-
-.gallery-caption {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(transparent, rgba(8,15,30,0.75));
-  color: #fff;
-  padding: var(--space-md) var(--space-lg);
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-
-/* CTA */
+/* ── CTA ─────────────────────────────────────────────────────── */
 .carreras-cta {
   background: linear-gradient(135deg, #080f1e 0%, #1565C0 100%);
   padding: var(--space-3xl) 0;
@@ -62,14 +88,4 @@
   max-width: 540px;
   margin-bottom: var(--space-xl);
   line-height: 1.6;
-}
-
-@media (max-width: 640px) {
-  .carreras-gallery {
-    grid-template-columns: 1fr;
-  }
-
-  .gallery-item img {
-    height: 260px;
-  }
 }

@@ -38,7 +38,7 @@ export default function Contacto() {
           <p>Consultas sobre productos, tallas, envíos o si quieres unirte al club — estamos aquí.</p>
           <div className="contact-items">
             {[
-              { icon: '📧', label: 'Email', value: 'hola@veloshop.cl' },
+              { icon: '📧', label: 'Email', value: 'hola@virtual-bike.cl' },
               { icon: '📍', label: 'Ubicación', value: 'Santiago, Chile' },
               { icon: '⏰', label: 'Horario', value: 'Lun–Vie 9:00–18:00' },
             ].map((item) => (

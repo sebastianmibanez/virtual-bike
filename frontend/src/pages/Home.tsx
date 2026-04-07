@@ -1,23 +1,23 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { getProducts, getCategories } from '../services/api'
+import { getProducts } from '../services/api'
 import ProductCard from '../components/store/ProductCard'
-import type { Product, Category } from '../types'
-import heroImg1 from '../assets/Equipo/virtual-bike2.jpg'
-import heroImg2 from '../assets/Equipo/virtual-bike5.jpg'
-import heroImg3 from '../assets/Equipo/virtual-bike7.jpg'
+import type { Product } from '../types'
+import heroImg1 from '../assets/Equipo/virtual-bike6.jpg'
+import heroImg2 from '../assets/Equipo/virtual-bike2.jpg'
+import heroImg3 from '../assets/Equipo/virtual-bike3.jpg'
+import heroImg4 from '../assets/Equipo/virtual-bike5.jpg'
+import heroImg5 from '../assets/Equipo/virtual-bike4.jpg'
 import './Home.css'
 
-const heroImages = [heroImg1, heroImg2, heroImg3]
+const heroImages = [heroImg1, heroImg2, heroImg3, heroImg4, heroImg5]
 
 export default function Home() {
   const [featured, setFeatured] = useState<Product[]>([])
-  const [categories, setCategories] = useState<Category[]>([])
   const [currentSlide, setCurrentSlide] = useState(0)
 
   useEffect(() => {
     getProducts({ page: 1 }).then((r) => setFeatured(r.data.products.slice(0, 4)))
-    getCategories().then((r) => setCategories(r.data.categories))
   }, [])
 
   useEffect(() => {
@@ -30,32 +30,40 @@ export default function Home() {
   return (
     <div className="home">
       {/* Hero */}
-      <section className="hero" style={{ backgroundImage: `url(${heroImages[currentSlide]})` }}>
-        <div className="hero-content container">
-          <span className="hero-tag reveal">Equipo · Club · Tienda</span>
-          <h1 className="reveal">Pedalea con los<br />mejores. Viste con <span>Virtual Bike.</span></h1>
-          <p className="reveal">Ropa técnica de alto rendimiento y accesorios para ciclistas que compiten en serio.</p>
-          <div className="hero-ctas reveal">
-            <Link to="/tienda" className="btn btn-accent">Ver tienda</Link>
-            <Link to="/equipo" className="btn btn-outline-white">Conoce el equipo</Link>
+      <section className="hero">
+        {/* Left: brand content */}
+        <div className="hero-left">
+          <div className="hero-content">
+            <span className="hero-tag reveal">Equipo · Club · Tienda</span>
+            <h1 className="reveal">Pedalea con los<br />mejores. Viste con <span>Virtual Bike.</span></h1>
+            <p className="reveal">Ropa técnica de alto rendimiento y accesorios para ciclistas que compiten en serio.</p>
+            <div className="hero-ctas reveal">
+              <Link to="/tienda" className="btn btn-accent">Ver tienda</Link>
+              <Link to="/equipo" className="btn btn-outline-white">Conoce el equipo</Link>
+            </div>
           </div>
         </div>
-        <div className="hero-overlay" />
-      </section>
 
-      {/* Categories */}
-      <section className="section container">
-        <h2 className="section-title reveal">Explora por categoría</h2>
-        <div className="categories-grid">
-          {categories.map((cat) => (
-            <Link key={cat.id} to={`/tienda?category=${cat.slug}`} className="category-card reveal">
-              <div className="category-icon">
-                {cat.slug === 'ropa' ? '👕' : cat.slug === 'repuestos' ? '⚙️' : '🪖'}
-              </div>
-              <h3>{cat.name}</h3>
-              <p>{cat.description}</p>
-            </Link>
+        {/* Right: photo carousel */}
+        <div className="hero-right">
+          {heroImages.map((img, i) => (
+            <img
+              key={i}
+              src={img}
+              alt={`Virtual Bike ${i + 1}`}
+              className={`hero-slide${i === currentSlide ? ' active' : ''}`}
+            />
           ))}
+          <div className="hero-dots">
+            {heroImages.map((_, i) => (
+              <button
+                key={i}
+                className={`hero-dot${i === currentSlide ? ' active' : ''}`}
+                onClick={() => setCurrentSlide(i)}
+                aria-label={`Slide ${i + 1}`}
+              />
+            ))}
+          </div>
         </div>
       </section>
 

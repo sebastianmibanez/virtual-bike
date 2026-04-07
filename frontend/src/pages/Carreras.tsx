@@ -1,9 +1,22 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import foto1 from '../assets/Carreras/clasica vbk.jpg'
 import foto2 from '../assets/Carreras/clasica vbk 2.jpg'
+import foto3 from '../assets/Carreras/clasica vbk3.jpg'
 import './Carreras.css'
 
+const carrerasImages = [foto1, foto2, foto3]
+
 export default function Carreras() {
+  const [currentSlide, setCurrentSlide] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % carrerasImages.length)
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <div className="carreras-page">
       <div className="page-header">
@@ -13,37 +26,44 @@ export default function Carreras() {
         </div>
       </div>
 
-      {/* Descripción */}
-      <section className="section container">
-        <div className="carreras-intro reveal">
-          <h2 className="section-title">¿Qué organizamos?</h2>
-          <p>
-            Carlos, fundador de Virtual Bike, lleva años organizando carreras de ciclismo en Chile pensadas
-            para ciclistas amateurs, clubes y familias que quieren vivir la experiencia de competir en un
-            ambiente seguro y bien organizado. Desde clásicas urbanas hasta rutas de montaña, cada evento
-            está diseñado para disfrutar el deporte que amamos.
-          </p>
-          <p>
-            Si eres parte de un club, representas a un equipo o simplemente quieres participar como
-            individuo, te esperamos en la largada.
-          </p>
-          <Link to="/contacto" className="btn btn-accent">Consultar próximas fechas</Link>
-        </div>
-      </section>
+      {/* Descripción con carousel de fondo */}
+      <section className="carreras-intro-section">
+        {/* Slides de fondo */}
+        {carrerasImages.map((img, i) => (
+          <div
+            key={i}
+            className={`carreras-bg-slide${i === currentSlide ? ' active' : ''}`}
+            style={{ backgroundImage: `url(${img})` }}
+          />
+        ))}
+        <div className="carreras-bg-overlay" />
 
-      {/* Galería */}
-      <section className="section section-alt">
-        <div className="container">
-          <h2 className="section-title reveal">Galería de eventos</h2>
-          <div className="carreras-gallery">
-            <div className="gallery-item reveal">
-              <img src={foto1} alt="Clásica Virtual Bike" />
-              <span className="gallery-caption">Clásica Virtual Bike</span>
-            </div>
-            <div className="gallery-item reveal">
-              <img src={foto2} alt="Clásica Virtual Bike" />
-              <span className="gallery-caption">Clásica Virtual Bike</span>
-            </div>
+        <div className="container carreras-intro-content">
+          <div className="carreras-intro reveal">
+            <h2>¿Qué organizamos?</h2>
+            <p>
+              Carlos, fundador de Virtual Bike, lleva años organizando carreras de ciclismo en Chile pensadas
+              para ciclistas amateurs, clubes y familias que quieren vivir la experiencia de competir en un
+              ambiente seguro y bien organizado. Desde clásicas urbanas hasta rutas de montaña, cada evento
+              está diseñado para disfrutar el deporte que amamos.
+            </p>
+            <p>
+              Si eres parte de un club, representas a un equipo o simplemente quieres participar como
+              individuo, te esperamos en la largada.
+            </p>
+            <Link to="/contacto" className="btn btn-accent">Consultar próximas fechas</Link>
+          </div>
+
+          {/* Dots */}
+          <div className="carreras-dots">
+            {carrerasImages.map((_, i) => (
+              <button
+                key={i}
+                className={`carreras-dot${i === currentSlide ? ' active' : ''}`}
+                onClick={() => setCurrentSlide(i)}
+                aria-label={`Foto ${i + 1}`}
+              />
+            ))}
           </div>
         </div>
       </section>
