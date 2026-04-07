@@ -2,11 +2,14 @@
 .hero {
   position: relative;
   min-height: 92vh;
-  background: url('https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=1600&q=80') center/cover no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   align-items: center;
   margin-top: calc(-1 * var(--navbar-height));
   padding-top: var(--navbar-height);
+  transition: background-image 1s ease-in-out;
 }
 .hero-overlay {
   position: absolute;

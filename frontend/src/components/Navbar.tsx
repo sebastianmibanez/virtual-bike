@@ -31,6 +31,7 @@ export default function Navbar() {
           <NavLink to="/" end onClick={() => setMenuOpen(false)}>Inicio</NavLink>
           <NavLink to="/tienda" onClick={() => setMenuOpen(false)}>Tienda</NavLink>
           <NavLink to="/equipo" onClick={() => setMenuOpen(false)}>Equipo</NavLink>
+          <NavLink to="/carreras" onClick={() => setMenuOpen(false)}>Carreras</NavLink>
           <NavLink to="/contacto" onClick={() => setMenuOpen(false)}>Contacto</NavLink>
         </nav>
 

@@ -10,6 +10,7 @@ import Home from './pages/Home'
 import Tienda from './pages/Tienda'
 import ProductDetail from './pages/ProductDetail'
 import Equipo from './pages/Equipo'
+import Carreras from './pages/Carreras'
 import Contacto from './pages/Contacto'
 import CheckoutSuccess from './pages/CheckoutSuccess'
 import CheckoutFailure from './pages/CheckoutFailure'
@@ -31,6 +32,7 @@ export default function App() {
               <Route path="tienda" element={<Tienda />} />
               <Route path="tienda/:productId" element={<ProductDetail />} />
               <Route path="equipo" element={<Equipo />} />
+              <Route path="carreras" element={<Carreras />} />
               <Route path="contacto" element={<Contacto />} />
               <Route path="checkout/success" element={<CheckoutSuccess />} />
               <Route path="checkout/failure" element={<CheckoutFailure />} />

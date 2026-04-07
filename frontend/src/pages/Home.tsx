@@ -3,21 +3,34 @@ import { Link } from 'react-router-dom'
 import { getProducts, getCategories } from '../services/api'
 import ProductCard from '../components/store/ProductCard'
 import type { Product, Category } from '../types'
+import heroImg1 from '../assets/Equipo/virtual-bike2.jpg'
+import heroImg2 from '../assets/Equipo/virtual-bike5.jpg'
+import heroImg3 from '../assets/Equipo/virtual-bike7.jpg'
 import './Home.css'
+
+const heroImages = [heroImg1, heroImg2, heroImg3]
 
 export default function Home() {
   const [featured, setFeatured] = useState<Product[]>([])
   const [categories, setCategories] = useState<Category[]>([])
+  const [currentSlide, setCurrentSlide] = useState(0)
 
   useEffect(() => {
     getProducts({ page: 1 }).then((r) => setFeatured(r.data.products.slice(0, 4)))
     getCategories().then((r) => setCategories(r.data.categories))
   }, [])
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroImages.length)
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <div className="home">
       {/* Hero */}
-      <section className="hero">
+      <section className="hero" style={{ backgroundImage: `url(${heroImages[currentSlide]})` }}>
         <div className="hero-content container">
           <span className="hero-tag reveal">Equipo · Club · Tienda</span>
           <h1 className="reveal">Pedalea con los<br />mejores. Viste con <span>Virtual Bike.</span></h1>
