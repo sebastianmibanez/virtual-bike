@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #080808;
+  color: #ffffff;
+  font-family: 'Barlow', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  width: 100%;
+}
+
+.font-condensed {
+  font-family: 'Barlow Condensed', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
