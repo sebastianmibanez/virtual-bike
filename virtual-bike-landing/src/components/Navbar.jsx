@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 
 const links = [
-  { label: 'Premios', href: '#premios' },
-  { label: 'Galería', href: '#galeria' },
-  { label: 'Categorías', href: '#inscripcion' },
+  { label: 'Día de carrera', href: '#dia-carrera' },
+  { label: 'Premios', href: '#premios-dinero' },
+  { label: 'Beneficios', href: '#premios' },
 ]
 
 export default function Navbar() {
@@ -25,7 +25,7 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-4 flex items-center justify-between">
         {/* Logo */}
         <a href="#" className="flex items-center gap-3">
-          <img src="/logo.jpg" alt="Virtual BK" className="w-9 h-9 rounded-full" />
+          <img src={`${import.meta.env.BASE_URL}sponsors/virtual-round.jpg`} alt="Virtual BK" className="w-9 h-9 rounded-full object-cover" />
           <span
             className="font-condensed font-800 text-xl tracking-wider text-white uppercase"
             style={{ fontFamily: 'Barlow Condensed', fontWeight: 800 }}
